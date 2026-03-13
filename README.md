@@ -1,55 +1,122 @@
-# Sparks-project**README**
+# 🎓 Student Score Prediction — End-to-End ML Project
 
-## Predicting Student Scores using Supervised Machine Learning
+An end-to-end machine learning project that predicts student exam scores based on daily study hours. Built with a modular production architecture, Flask web interface, and Docker support.
 
-This project is a part of the Data Science and Business Analytics Internship offered by The Sparks Foundation, undertaken by Soumyajyoti Chatterjee in January 2024. The task involves predicting student scores based on the number of study hours using supervised machine learning techniques.
+## 📸 Project Overview
 
-### Project Overview:
+| Feature | Description |
+|---------|-------------|
+| **Algorithm** | Compares 8 regression models, selects the best |
+| **Best Model** | Auto-selected based on R² score |
+| **Web App** | Flask-based prediction interface |
+| **Pipeline** | Modular training & prediction pipelines |
+| **Logging** | Timestamped log files with detailed tracing |
+| **Docker** | Containerized for easy deployment |
 
-- **Objective**: The main objective of this project is to predict the scores of students based on the number of hours they study per day.
-- **Dataset**: The dataset used for this project contains two columns - 'Hours' and 'Scores'. It consists of records indicating the number of study hours and the corresponding scores achieved by students.
-- **Approach**: Linear Regression, a supervised machine learning algorithm, is employed to establish a relationship between the number of study hours and the scores obtained.
+## 🏗️ Project Structure
 
-### Project Workflow:
+```
+Student_price_prediction/
+├── src/
+│   └── student_score_prediction/
+│       ├── __init__.py
+│       ├── logger.py              # Custom logging
+│       ├── exception.py           # Custom exception handling
+│       ├── utils.py               # Utility functions
+│       ├── components/
+│       │   ├── data_ingestion.py      # Data download & split
+│       │   ├── data_transformation.py # Feature preprocessing
+│       │   └── model_trainer.py       # Model comparison & training
+│       └── pipeline/
+│           ├── training_pipeline.py   # Orchestrates training
+│           └── prediction_pipeline.py # Serves predictions
+├── templates/
+│   └── index.html                 # Web UI
+├── notebook/
+│   └── Sparks.ipynb               # Original EDA notebook
+├── artifacts/                     # Generated models & data (gitignored)
+├── logs/                          # Log files (gitignored)
+├── app.py                         # Flask web application
+├── setup.py                       # Package configuration
+├── requirements.txt               # Dependencies
+├── Dockerfile                     # Docker configuration
+└── README.md
+```
 
-1. **Data Importing and Exploration**:
-   - The necessary libraries such as Pandas, NumPy, Matplotlib, Seaborn, and scikit-learn are imported.
-   - The dataset is loaded from a CSV file hosted on GitHub.
-   - Initial exploration of the dataset is performed by displaying the first few rows and visualizing the data using a scatter plot to observe the relationship between study hours and scores.
+## 🚀 Getting Started
 
-2. **Data Preparation**:
-   - The dataset is divided into input features (X) and target variable (y).
-   - Data splitting is carried out into training and testing sets to evaluate the performance of the model.
+### Prerequisites
+- Python 3.8+
+- pip
 
-3. **Model Training**:
-   - A Linear Regression model is instantiated and trained using the training data.
+### Installation
 
-4. **Model Evaluation**:
-   - The trained model is evaluated using the testing data.
-   - Evaluation metrics such as R-squared (R²) and Root Mean Squared Error (RMSE) are calculated to assess the model's performance.
+```bash
+# Clone the repository
+git clone https://github.com/SOUMYAJYOTI1234/Sparks-project.git
+cd Sparks-project
 
-5. **Prediction**:
-   - Using the trained model, predictions are made on the testing data.
-   - Additionally, a prediction is made for a student studying 9.25 hours/day.
+# Install dependencies
+pip install -r requirements.txt
 
-### Files Included:
+# Install the package in development mode
+pip install -e .
+```
 
-- **predict_student_scores.ipynb**: Jupyter Notebook containing the Python code for data loading, preprocessing, model training, evaluation, and prediction.
-- **README.md**: The README file providing an overview of the project, its objectives, workflow, and files included.
-- **student_scores.csv**: CSV file containing the dataset used for training and testing the model.
+### Run the Training Pipeline
 
+```bash
+python -m src.student_score_prediction.pipeline.training_pipeline
+```
 
+This will:
+1. Download the dataset from the source
+2. Split into train/test sets (80/20)
+3. Apply StandardScaler preprocessing
+4. Compare 8 regression models
+5. Select and save the best model
 
-### Dependencies:
+### Run the Web Application
 
-- Python 3.x
-- pandas
-- numpy
-- matplotlib
-- seaborn
-- scikit-learn
+```bash
+python app.py
+```
 
+Then open http://127.0.0.1:5000 in your browser.
 
-### Acknowledgments:
+### Docker
 
-This project is completed as a part of the internship program provided by The Sparks Foundation. Special thanks to The Sparks Foundation for providing the opportunity to work on practical data science and analytics projects.
+```bash
+# Build the image
+docker build -t student-score-predictor .
+
+# Run the container
+docker run -p 5000:5000 student-score-predictor
+```
+
+## 🤖 Models Compared
+
+| Model | Description |
+|-------|-------------|
+| Linear Regression | Standard OLS regression |
+| Ridge | L2 regularized regression |
+| Lasso | L1 regularized regression |
+| ElasticNet | L1 + L2 regularization |
+| Decision Tree | Non-linear tree-based model |
+| Random Forest | Ensemble of decision trees |
+| Gradient Boosting | Sequential boosting ensemble |
+| SVR | Support vector regression |
+
+## 📊 Dataset
+
+- **Source**: [Student Scores Dataset](https://raw.githubusercontent.com/AdiPersonalWorks/Random/master/student_scores%20-%20student_scores.csv)
+- **Features**: `Hours` (study hours per day)
+- **Target**: `Scores` (exam score 0-100)
+- **Samples**: 25 records
+
+## 🙏 Acknowledgments
+
+This project is completed as part of the **Data Science & Business Analytics Internship** by [The Sparks Foundation](https://www.thesparksfoundationsingapore.org/).
+
+---
+*Built by [Soumyajyoti Chatterjee](https://github.com/SOUMYAJYOTI1234)*
